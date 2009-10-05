@@ -1,0 +1,67 @@
+.calendar {
+  border-left: 1px solid #ccc;
+  width: 760px;
+}
+
+.calendar .header .months, .calendar .header .days {
+  overflow: auto;
+}
+
+.calendar .header .months div, .calendar .header .days div {
+  float: left;
+}
+
+.calendar .header .previous_month, .calendar .header .next_month {
+  width: 20%;
+}
+
+.calendar .header .current_month {
+  width: 60%;
+}
+
+.calendar .header .days div {
+  background-color: #000;
+  color: #fff;
+}
+
+.calendar .day {
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  float: left;
+  width: 14.2%;
+}
+
+.calendar .week {
+  overflow: auto;
+}
+
+.calendar .label {
+  background-color: #ffc;
+}
+
+.calendar .body .days .day {
+  background-color: #eee;
+  min-height: 100px;
+  z-index: 1;
+}
+
+.calendar .event {
+  background-color: red;
+  float: left;
+  margin: 2px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.calendar .events .day_span_1 {
+  background-color: green;
+  width: 200px;
+}
+
+.calendar .day_span_2 {
+  width: 400px;
+}
+
+.calendar .day_span_3 {
+  width: 300px;
+}
