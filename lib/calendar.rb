@@ -1,3 +1,5 @@
+require 'calendar/week'
+
 class Calendar
   
   extend ActiveSupport::Memoizable
@@ -46,7 +48,10 @@ class Calendar
     days_in_month = Time.days_in_month(self.month, self.year)
     starting_day = date.beginning_of_week() -1.day + beginning_of_week.days
     ending_day = (date + days_in_month).end_of_week() -1.day + beginning_of_week.days
-    (starting_day..ending_day).to_a.in_groups_of(7)
+    (starting_day..ending_day).to_a.in_groups_of(7).map do |week| 
+      events_during_this_week = self.events.select { |event| week.include?(event.send(options[:event_start])) || week.include?(event.send(options[:event_end])) }
+      Week.new(week, events_during_this_week, options)
+    end
   end
   memoize :weeks
   
@@ -115,7 +120,7 @@ class Calendar
                       end
                     end
                   end
-                  unless calendar.events.empty?
+                  unless week.events.empty?
                     table.events.send("#{calendar.id}_events_#{week.first}_#{week.last}!") do
                       tbody do
                         # TODO
