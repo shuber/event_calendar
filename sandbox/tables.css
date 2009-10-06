@@ -1,0 +1,46 @@
+.calendar {
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  width: 100%;
+}
+
+.calendar table {
+    border-collapse: collapse;
+    margin: 0;
+    width: 100%;
+}
+
+.calendar td {
+    border-bottom: 0px solid transparent;
+    border-color: #ccc;
+    width: 14.285%;
+}
+
+.calendar .header .months, .calendar .header .days {
+  overflow: auto;
+}
+
+.calendar .header .months div, .calendar .header .days div {
+  float: left;
+}
+
+.calendar .body .days td.day {
+    height: 100px;
+    z-index: 1;
+}
+
+.calendar .events {
+    left: 0px;
+    position: absolute;
+    text-align: left;
+    top: 0px;
+    z-index: 2;
+}
+
+.calendar div.days {
+    position: relative;
+}
+
+.calendar .event {
+    background-color: red;
+}
