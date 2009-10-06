@@ -1,8 +1,11 @@
 class Calendar
   
+  extend ActiveSupport::Memoizable
+  
   undef_method :id
   
-  attr_accessor :events, :month, :options, :year
+  attr_reader :events
+  attr_accessor :options
   
   def self.default_options
     @default_options ||= {
@@ -16,18 +19,14 @@ class Calendar
   end
   
   def initialize(year = Time.now.year, month = Time.now.month, events = [], options = {})
-    self.year, self.month, self.events, self.options = year, month, events, self.class.default_options.merge(options)
+    @year, @month, @events, @options = year, month, events, self.class.default_options.merge(options)
     yield self if block_given?
   end
   
-  def generate
-    validate_options!
-    
-    date = Date.civil(self.year, self.month, 1)
-    weeks = generate_weeks_for(date)
-    render date, weeks
+  def date
+    Date.civil(@year, @month, 1)
   end
-  alias_method :to_html, :generate
+  memoize :date
   
   def method_missing(method, *args)
     if method.to_s =~ /^([^=]+)(=?)$/ && options.has_key?($1.to_sym)
@@ -38,29 +37,34 @@ class Calendar
     end
   end
   
-  protected
+  def to_html
+    render_with_markaby
+  end
   
-    def generate_weeks_for(date)
-      days_in_month = Time.days_in_month(self.month, self.year)
-      starting_day = date.beginning_of_week() -1.day + beginning_of_week.days
-      ending_day = (date + days_in_month).end_of_week() -1.day + beginning_of_week.days
-      (starting_day..ending_day).to_a.in_groups_of(7)
-    end
+  def weeks
+    days_in_month = Time.days_in_month(@month, @year)
+    starting_day = date.beginning_of_week() -1.day + beginning_of_week.days
+    ending_day = (date + days_in_month).end_of_week() -1.day + beginning_of_week.days
+    (starting_day..ending_day).to_a.in_groups_of(7)
+  end
+  memoize :weeks
+  
+  protected
     
-    def render(date, weeks)
+    def render_with_markaby
       calendar = self
       Markaby::Builder.new do
-        div.calendar.send(date.strftime('%B').downcase).send("#{calendar.id}!") do
+        div.calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!") do
           div.header do
             table do
               tbody do
                 tr.navigation do
-                  td.previous_month date.last_month.strftime('%B'), :colspan => 2
-                  td.current_month date.strftime('%B %Y'), :colspan => 3
-                  td.next_month date.next_month.strftime('%B'), :colspan => 2
+                  td.previous_month calendar.date.last_month.strftime('%B'), :colspan => 2
+                  td.current_month calendar.date.strftime('%B %Y'), :colspan => 3
+                  td.next_month calendar.date.next_month.strftime('%B'), :colspan => 2
                 end
                 tr.labels do
-                  weeks.first.each do |day|
+                  calendar.weeks.first.each do |day|
                     day_label = td.day
                     day_label = day_label.send(day.strftime('%A').downcase)
                     day_label = day_label.today if day.cwday == Time.now.to_date.cwday
@@ -71,14 +75,14 @@ class Calendar
             end
           end
           div.body do
-            weeks.each do |week|
+            calendar.weeks.each do |week|
               div.week.send("#{calendar.id}_week_#{week.first}_#{week.last}!") do
                 table.send("#{calendar.id}_labels_#{week.first}_#{week.last}!") do
                   tbody do
                     tr.labels do
                       week.each do |day|
                         day_label = td.day
-                        day_label = day_label.send(day.month == date.month ? 'current_month' : day < date ? 'previous_month' : 'next_month')
+                        day_label = day_label.send(day.month == calendar.date.month ? 'current_month' : day < calendar.date ? 'previous_month' : 'next_month')
                         day_label = day_label.send([6, 7].include?(day.cwday) ? 'weekend' : 'weekday')
                         day_label = day_label.send(day.strftime('%A').downcase)
                         day_label = day_label.send(day.strftime('%B').downcase)
@@ -95,7 +99,7 @@ class Calendar
                       tr do
                         week.each do |day| 
                           day_grid = td.day
-                          day_grid = day_grid.send(day.month == date.month ? 'current_month' : day < date ? 'previous_month' : 'next_month')
+                          day_grid = day_grid.send(day.month == calendar.date.month ? 'current_month' : day < calendar.date ? 'previous_month' : 'next_month')
                           day_grid = day_grid.send([6, 7].include?(day.cwday) ? 'weekend' : 'weekday')
                           day_grid = day_grid.send(day.strftime('%A').downcase)
                           day_grid = day_grid.send(day.strftime('%B').downcase)
@@ -119,10 +123,6 @@ class Calendar
           end
         end
       end.to_s
-    end
-    
-    def validate_options!
-      raise ArgumentError.new('beginning_of_week must be an integer between 0 and 6') unless beginning_of_week.is_a?(Integer) && (0..6).include?(beginning_of_week)
     end
     
 end

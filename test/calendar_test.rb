@@ -8,7 +8,7 @@ class CalendarTest < Test::Unit::TestCase
   
   def test_this_lib
     c = Calendar.new
-    puts c.generate
+    puts c.to_html
   end
   
 end
