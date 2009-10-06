@@ -30,9 +30,12 @@ class Calendar
   alias_method :to_html, :generate
   
   def method_missing(method, *args)
-    method.to_s =~ /^([^=]+)(=?)$/
-    options[$1.to_sym] = args.first unless $2.empty?
-    options[$1.to_sym]
+    if method.to_s =~ /^([^=]+)(=?)$/ && options.has_key?($1.to_sym)
+      options[$1.to_sym] = args.first unless $2.empty?
+      options[$1.to_sym]
+    else
+      super
+    end
   end
   
   protected
