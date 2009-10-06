@@ -1,9 +1,12 @@
 class Calendar
   
+  undef_method :id
+  
   attr_accessor :events, :month, :options, :year
   
   def self.default_options
     @default_options ||= {
+      :id => 'calendar',
       :beginning_of_week => 0,
       :event_title => :title,
       :event_start => :starts_at,
@@ -40,44 +43,43 @@ class Calendar
     end
     
     def render(date, weeks)
-      options = self.options
-      events = self.events.dup
+      calendar = self
       Markaby::Builder.new do
-        div.calendar do
+        div.calendar.send("#{calendar.id}!") do
           div.header do
-            div.months do
-              div.previous_month { date.last_month.strftime('%B') }
-              div.current_month { date.strftime('%B %Y') }
-              div.next_month { date.next_month.strftime('%B') }
-            end
-            div.days do
-              weeks.first.each do |day|
-                div.day.label { day.strftime('%a') }
+            table do
+              tr.navigation do
+                td.previous_month date.last_month.strftime('%B'), :colspan => 2
+                td.current_month date.strftime('%B %Y'), :colspan => 3
+                td.next_month date.next_month.strftime('%B'), :colspan => 2
+              end
+              tr.labels do
+                weeks.first.each do |day|
+                  td.day.label day.strftime('%a')
+                end
               end
             end
           end
-          
           div.body do
             weeks.each do |week|
               div.week do
-                div.labels do
-                  week.each do |day|
-                    div.day.label { day.strftime('%d') } # add this_month class
+                table do
+                  tr.labels do
+                    week.each do |day|
+                      td.day.label day.strftime('%d').gsub(/^0/, '') # add current class and today
+                    end
                   end
                 end
                 div.days do
-                  week.each do |day| 
-                    div.day do
-                      div.events do
-                        events.select { |event| (event.send(options[:event_start])..event.send(options[:event_end])).include?(day) }.each do |event|
-                          event_start = event.send(options[:event_start])
-                          event_end = event.send(options[:event_end])
-                          day_span = ((event_end > week.last ? week.last : event_end) - event_start).to_i
-                          div.event.send("#{day_span}_day") do
-                            'i am an event'
-                          end
-                        end
+                  table.grid do
+                    tr do
+                      week.each do |day| 
+                        td.day.send("day_#{day}!") {}
                       end
+                    end
+                  end
+                  unless calendar.events.empty?
+                    table.events do
                     end
                   end
                 end
