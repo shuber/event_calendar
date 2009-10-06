@@ -8,6 +8,7 @@ class Calendar
     @default_options ||= {
       :id => 'calendar',
       :beginning_of_week => 0,
+      :event_id => :id,
       :event_title => :title,
       :event_start => :starts_at,
       :event_end => :ends_at
