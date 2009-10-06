@@ -20,3 +20,15 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('README.rdoc')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
+namespace :calendar do
+  namespace :generate do
+    desc 'Generates css for the calendar'
+    task :css do
+      require 'haml'
+      require 'sass/engine'
+      file = File.join(File.dirname(__FILE__), 'lib/calendar.sass')
+      puts Sass::Engine.new(File.read(file)).to_css
+    end
+  end
+end

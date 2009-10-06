@@ -1,0 +1,32 @@
+!border_color = #ccc
+!grid_height = 100px
+
+.calendar
+  border-bottom= 1px "solid" !border_color
+  
+  table
+    border-collapse: collapse
+    margin: 0
+    width: 100%
+    
+    td
+      border-bottom: 0px solid transparent
+      border-color= !border_color
+      width: 14.285%
+  
+  .grid
+    height= !grid_height
+    z-index: 1
+  
+  .days
+    position: relative
+  
+  .events
+    left: 0px
+    position: absolute
+    text-align: left
+    top: 0px
+    z-index: 2
+    
+    .event
+      background-color: red
