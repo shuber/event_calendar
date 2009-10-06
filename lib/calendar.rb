@@ -39,7 +39,7 @@ class Calendar
   def to_html
     date(:reload)
     weeks(:reload)
-    render_with_markaby
+    render
   end
   
   def weeks
@@ -51,6 +51,10 @@ class Calendar
   memoize :weeks
   
   protected
+    
+    def render
+      render_with_markaby
+    end
     
     def render_with_markaby
       calendar = self
