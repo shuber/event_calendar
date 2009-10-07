@@ -49,7 +49,9 @@ class Calendar
     starting_day = date.beginning_of_week() -1.day + beginning_of_week.days
     ending_day = (date + days_in_month).end_of_week() -1.day + beginning_of_week.days
     (starting_day..ending_day).to_a.in_groups_of(7).map do |week| 
-      events_during_this_week = self.events.select { |event| week.include?(event.send(options[:event_start])) || week.include?(event.send(options[:event_end])) }
+      events_during_this_week = self.events.select do |event| 
+        event.send(options[:event_start]).to_date <= week.last && event.send(options[:event_end]).to_date >= week.first
+      end
       Week.new(week, events_during_this_week, options)
     end
   end
