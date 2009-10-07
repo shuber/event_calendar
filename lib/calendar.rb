@@ -16,7 +16,8 @@ class Calendar
       :event_id           => :id,
       :event_title        => :title,
       :event_start        => :starts_at,
-      :event_end          => :ends_at
+      :event_end          => :ends_at,
+      :template           => File.dirname(__FILE__) + '/calendar.mab'
     }
   end
   
@@ -65,101 +66,7 @@ class Calendar
     end
     
     def render_with_markaby
-      calendar = self
-      Markaby::Builder.new do
-        div.calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!") do
-          div.header do
-            table do
-              tbody do
-                tr.navigation do
-                  td.previous_month calendar.date.last_month.strftime('%B'), :colspan => 2
-                  td.current_month calendar.date.strftime('%B %Y'), :colspan => 3
-                  td.next_month calendar.date.next_month.strftime('%B'), :colspan => 2
-                end
-                tr.labels do
-                  calendar.weeks.first.each do |day|
-                    day_label = td.day
-                    day_label = day_label.send(day.strftime('%A').downcase)
-                    day_label = day_label.today if day.cwday == Time.now.to_date.cwday
-                    day_label.label day.strftime('%a')
-                  end
-                end
-              end
-            end
-          end
-          div.body do
-            calendar.weeks.each do |week|
-              div.week.send("#{calendar.id}_week_#{week.first}_#{week.last}!") do
-                table.send("#{calendar.id}_labels_#{week.first}_#{week.last}!") do
-                  tbody do
-                    tr.labels do
-                      week.each do |day|
-                        day_label = td.day
-                        day_label = day_label.send(day.month == calendar.date.month ? 'current_month' : day < calendar.date ? 'previous_month' : 'next_month')
-                        day_label = day_label.send([6, 7].include?(day.cwday) ? 'weekend' : 'weekday')
-                        day_label = day_label.send(day.strftime('%A').downcase)
-                        day_label = day_label.send(day.strftime('%B').downcase)
-                        day_label = day_label.send("day_#{day.strftime('%d').gsub(/^0/, '')}")
-                        day_label = day_label.today if day == Time.now.to_date
-                        day_label.label day.strftime('%d').gsub(/^0/, '')
-                      end
-                    end
-                  end
-                end
-                div.days.send("#{calendar.id}_days_#{week.first}_#{week.last}!") do
-                  table.grid.send("#{calendar.id}_grid_#{week.first}_#{week.last}!") do
-                    tbody do
-                      tr do
-                        week.each do |day| 
-                          day_grid = td.day
-                          day_grid = day_grid.send(day.month == calendar.date.month ? 'current_month' : day < calendar.date ? 'previous_month' : 'next_month')
-                          day_grid = day_grid.send([6, 7].include?(day.cwday) ? 'weekend' : 'weekday')
-                          day_grid = day_grid.send(day.strftime('%A').downcase)
-                          day_grid = day_grid.send(day.strftime('%B').downcase)
-                          day_grid = day_grid.send("day_#{day.strftime('%d').gsub(/^0/, '')}")
-                          day_grid = day_grid.today if day == Time.now.to_date
-                          day_grid.send("#{calendar.id}_day_#{day}!") {}
-                        end
-                      end
-                    end
-                  end
-                  unless week.events.empty?
-                    table.events.send("#{calendar.id}_events_#{week.first}_#{week.last}!") do
-                      tbody do
-                        week.events.each do |row|
-                          tr do
-                            row.each do |cell|
-                              if cell.empty?
-                                td('')
-                              else
-                                event_id = "event_#{cell.first.send(calendar.options[:event_id])}"
-                                event_title = cell.first.send(calendar.options[:event_title])
-                                html_options = { :class => 'event' }
-                                html_options[:colspan] = cell[1] unless cell[1] == 1
-                                html_options[:class] << " #{calendar.options[:event_class]}" unless calendar.options[:event_class].nil?
-                                if cell.last
-                                  type = cell.first.send(calendar.options[:event_start]).to_date < week.first ? 'continuation' : 'continued'
-                                  html_options[:class] << " #{type}"
-                                  event_id << "_#{type}"
-                                end
-                                td(html_options) do
-                                  a.send("#{event_id}!", { :title => event_title }) do
-                                    event_title
-                                  end
-                                end
-                              end
-                            end
-                          end
-                        end
-                      end
-                    end
-                  end
-                end
-              end
-            end
-          end
-        end
-      end.to_s
+      Markaby::Builder.new(:calendar => self, :template => File.read(template)) { eval(template) }.to_s
     end
     
 end
