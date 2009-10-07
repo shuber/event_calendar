@@ -17,7 +17,7 @@ class Calendar
       :event_title        => :title,
       :event_start        => :starts_at,
       :event_end          => :ends_at,
-      :template           => File.dirname(__FILE__) + '/calendar.mab'
+      :template           => File.join(File.dirname(__FILE__), 'calendar', 'template.mab')
     }
   end
   

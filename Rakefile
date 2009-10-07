@@ -27,7 +27,7 @@ namespace :calendar do
     task :css do
       require 'haml'
       require 'sass/engine'
-      file = File.join(File.dirname(__FILE__), 'lib/calendar.sass')
+      file = File.join(File.dirname(__FILE__), 'lib', 'calendar', 'stylesheet.sass')
       puts Sass::Engine.new(File.read(file)).to_css
     end
   end
