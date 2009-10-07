@@ -19,5 +19,18 @@
     text-align: left;
     top: 0px;
     z-index: 2; }
-    .calendar .events .event {
-      background-color: red; }
+    .calendar .events td {
+      border-bottom: 0px solid transparent;
+      border-top: 0px solid transparent;
+      padding: 0; }
+      .calendar .events td a {
+        background-color: red;
+        display: block;
+        margin-top: 5px;
+        padding: 1px 3px;
+        -khtml-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px; }
+        .calendar .events td a:hover {
+          background-color: blue; }

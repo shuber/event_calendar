@@ -1,6 +1,12 @@
 !border_color = #ccc
 !grid_height = 100px
 
+=round(!radius)
+  :-khtml-border-radius= !radius
+  :-moz-border-radius= !radius
+  :-webkit-border-radius= !radius
+  :border-radius= !radius
+
 .calendar
   border-bottom= 1px "solid" !border_color
   
@@ -28,5 +34,17 @@
     top: 0px
     z-index: 2
     
-    .event
-      background-color: red
+    td
+      border-bottom: 0px solid transparent
+      border-top: 0px solid transparent
+      padding: 0
+      
+      a
+        background-color: red
+        display: block
+        margin-top: 5px
+        padding: 1px 3px
+        +round(5px)
+        
+        &:hover
+          background-color: blue

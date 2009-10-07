@@ -12,6 +12,7 @@ class Calendar
     @default_options ||= {
       :id                 => 'calendar',
       :beginning_of_week  => 0,
+      :event_class        => nil,
       :event_id           => :id,
       :event_title        => :title,
       :event_start        => :starts_at,
@@ -125,7 +126,24 @@ class Calendar
                   unless week.events.empty?
                     table.events.send("#{calendar.id}_events_#{week.first}_#{week.last}!") do
                       tbody do
-                        # TODO
+                        week.events.each do |row|
+                          tr do
+                            row.each do |cell|
+                              if cell.empty?
+                                td('')
+                              else
+                                html_options = { :class => 'event' }
+                                html_options[:colspan] = cell.last unless cell.last == 1
+                                html_options[:class] << " #{calendar.options[:event_class]}" unless calendar.options[:event_class].nil?
+                                td(html_options) do
+                                  a do
+                                    cell.first.send(calendar.options[:event_title])
+                                  end
+                                end
+                              end
+                            end
+                          end
+                        end
                       end
                     end
                   end
