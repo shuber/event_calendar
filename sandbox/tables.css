@@ -21,6 +21,7 @@
     z-index: 2; }
     .calendar .events td {
       border-bottom: 0px solid transparent;
+      border-left: 0px solid transparent;
       border-top: 0px solid transparent;
       padding: 0; }
       .calendar .events td a {
