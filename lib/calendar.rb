@@ -132,12 +132,19 @@ class Calendar
                               if cell.empty?
                                 td('')
                               else
+                                event_id = "event_#{cell.first.send(calendar.options[:event_id])}"
+                                event_title = cell.first.send(calendar.options[:event_title])
                                 html_options = { :class => 'event' }
-                                html_options[:colspan] = cell.last unless cell.last == 1
+                                html_options[:colspan] = cell[1] unless cell[1] == 1
                                 html_options[:class] << " #{calendar.options[:event_class]}" unless calendar.options[:event_class].nil?
+                                if cell.last
+                                  type = cell.first.send(calendar.options[:event_start]).to_date < week.first ? 'continuation' : 'continued'
+                                  html_options[:class] << " #{type}"
+                                  event_id << "_#{type}"
+                                end
                                 td(html_options) do
-                                  a do
-                                    cell.first.send(calendar.options[:event_title])
+                                  a.send("#{event_id}!", { :title => event_title }) do
+                                    event_title
                                   end
                                 end
                               end
