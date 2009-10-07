@@ -16,11 +16,18 @@ class Calendar
           (event_start == day || (event_start < day && day == first)) && event_end >= day
         end.map { |event| [event, days(event)] }
       end
-      # [
-      #   [[event, 1], [], [event, 1], [event, 4]],
-      #   [[event, 2], [], [], [], [], [event, 1]]
-      # ]
-      []
+      
+      rows = []
+      until week_events.all? { |day| day.empty? }
+        row = []
+        week_events.each_with_index do |day, index|
+          cells = row.inject(0) { |sum, event| sum += (event.empty? ? 1 : event.last) }
+          next if cells > index || cells >= 7
+          row << (day.empty? ? [] : day.shift)
+        end
+        rows << row
+      end
+      rows
     end
     memoize :events
     
