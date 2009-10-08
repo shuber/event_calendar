@@ -1,8 +1,12 @@
 var Calendar = Class.create({
   
-  initialize: function(element) {
+  options: $H({ events_css_path: '.event a' }),
+  
+  initialize: function(element, options) {
     this.element = element;
-    this.events = $$('#' + this.element.id + ' ' + Calendar.events_css_path);
+    this.options = this.options.merge(options || {});
+    
+    this.events = $$('#' + this.element.id + ' ' + this.options.get('events_css_path'));
     
     this.events.each(function(event) {
       var related_events = this.related_events_for(event);
@@ -10,7 +14,7 @@ var Calendar = Class.create({
       event.observe('mouseover', function() {
         related_events.each(function(related_event) {
           related_event.addClassName('hover');
-        }); 
+        });
       });
       
       event.observe('mouseout', function() {
@@ -30,11 +34,4 @@ var Calendar = Class.create({
   
 });
 
-Calendar.events_css_path = '.event a';
 Calendar.instances = [];
-
-document.observe('dom:loaded', function() {
-  $$('.calendar').each(function(element) {
-    Calendar.instances.push(new Calendar(element));
-  });
-});
