@@ -1,8 +1,3 @@
-!border_color = #ccc
-!border_width = 1px
-!event_spacing = 3px
-!grid_height = 125px
-
 =round(!radius)
   :-khtml-border-radius= !radius
   :-moz-border-radius= !radius
@@ -30,7 +25,6 @@
   :border-top-right-radius= 0px
 
 .calendar
-  border-bottom= !border_width "solid" !border_color
   
   table
     border-collapse: collapse
@@ -38,16 +32,13 @@
     width: 100%
     
     td
-      border-color= !border_color
-      border-width= !border_width
-      border-bottom: 0px solid transparent
+      border-bottom: 0px solid transparent !important
       width: 14.285%
   
   .days
     position: relative
   
     table.grid
-      height= !grid_height
       z-index: 1
   
     .events
@@ -61,7 +52,6 @@
       td
         border-bottom-width: 0px
         border-left-width: 0px
-        border-top-width= !event_spacing
         border-color: transparent
         overflow: hidden
         padding: 0
@@ -69,25 +59,68 @@
         white-space: nowrap
       
         a
-          background-color: red
+          background-color: transparent
           cursor: pointer
           display: block
           padding: 1px 3px
-          +round(5px)
-      
-        &:hover a, &.hover a
-          background-color: blue
     
       tr.grid td
         border-top-width: 0px
         height: 0px
-      
-      td.continued
+
+
+
+
+!border_color = #D4D5D4
+!border_width = 1px
+
+!event_background_color = #9AAC9A
+!event_hover_background_color = #6F7F6F
+!event_color = #FFF
+!event_spacing = 3px
+
+!grid_background_color = #FEFFFE
+!grid_height = 125px
+
+!header_label_background_color = #2F302F
+!header_label_color = #FFF
+
+!label_background_color = #EBEDE2
+!label_color = #000
+
+.calendar
+  border-bottom= !border_width "solid" !border_color
   
-        a
-          +unround_right()
+  table td
+    border-color= !border_color
+    border-width= !border_width
+  
+  table.grid
+    background-color= !grid_background_color
+    height= !grid_height
+  
+  .label
+    background-color= !label_background_color
+    border-top-width= !border_width
+    color= !label_color
+  
+  .header .label
+    background-color= !header_label_background_color
+    color= !header_label_color
+  
+  .days .events td
+    border-top-width= !event_spacing
     
-      td.continuation
+    a
+      background-color= !event_background_color
+      color= !event_color
+      +round(5px)
     
-        a
-          +unround_left()
+    &:hover a, &.hover a
+      background-color= !event_hover_background_color
+    
+    &.continuation a
+      +unround_left()
+    
+    &.continued a
+      +unround_right()
