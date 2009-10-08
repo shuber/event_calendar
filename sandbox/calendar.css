@@ -5,59 +5,60 @@
     margin: 0;
     width: 100%; }
     .calendar table td {
-      border-bottom: 0px solid transparent;
       border-color: #cccccc;
+      border-width: 1px;
+      border-bottom: 0px solid transparent;
       width: 14.285%; }
-  .calendar table.grid {
-    height: 100px;
-    z-index: 1; }
   .calendar .days {
     position: relative; }
-  .calendar .events {
-    left: 0px;
-    position: absolute;
-    table-layout: fixed;
-    text-align: left;
-    top: 0px;
-    z-index: 2; }
-    .calendar .events td {
-      border-bottom-width: 0px;
-      border-left-width: 0px;
-      border-top-width: 3px;
-      border-color: transparent;
-      overflow: hidden;
-      padding: 0;
-      text-overflow: ellipsis;
-      white-space: nowrap; }
-      .calendar .events td a {
-        background-color: red;
-        cursor: pointer;
-        display: block;
-        padding: 1px 3px;
-        -khtml-border-radius: 5px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border-radius: 5px; }
-      .calendar .events td:hover a, .calendar .events td.hover a {
-        background-color: blue; }
-    .calendar .events tr.grid td {
-      border-top-width: 0px;
-      height: 0px; }
-    .calendar .events td.continued a {
-      -khtml-border-radius-bottomright: 0px;
-      -moz-border-radius-bottomright: 0px;
-      -webkit-border-bottom-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-      -khtml-border-radius-topright: 0px;
-      -moz-border-radius-topright: 0px;
-      -webkit-border-top-right-radius: 0px;
-      border-top-right-radius: 0px; }
-    .calendar .events td.continuation a {
-      -khtml-border-radius-bottomleft: 0px;
-      -moz-border-radius-bottomleft: 0px;
-      -webkit-border-bottom-left-radius: 0px;
-      border-bottom-left-radius: 0px;
-      -khtml-border-radius-topleft: 0px;
-      -moz-border-radius-topleft: 0px;
-      -webkit-border-top-left-radius: 0px;
-      border-top-left-radius: 0px; }
+    .calendar .days table.grid {
+      height: 125px;
+      z-index: 1; }
+    .calendar .days .events {
+      left: 0px;
+      position: absolute;
+      table-layout: fixed;
+      text-align: left;
+      top: 0px;
+      z-index: 2; }
+      .calendar .days .events td {
+        border-bottom-width: 0px;
+        border-left-width: 0px;
+        border-top-width: 3px;
+        border-color: transparent;
+        overflow: hidden;
+        padding: 0;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+        .calendar .days .events td a {
+          background-color: red;
+          cursor: pointer;
+          display: block;
+          padding: 1px 3px;
+          -khtml-border-radius: 5px;
+          -moz-border-radius: 5px;
+          -webkit-border-radius: 5px;
+          border-radius: 5px; }
+        .calendar .days .events td:hover a, .calendar .days .events td.hover a {
+          background-color: blue; }
+      .calendar .days .events tr.grid td {
+        border-top-width: 0px;
+        height: 0px; }
+      .calendar .days .events td.continued a {
+        -khtml-border-radius-bottomright: 0px;
+        -moz-border-radius-bottomright: 0px;
+        -webkit-border-bottom-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        -khtml-border-radius-topright: 0px;
+        -moz-border-radius-topright: 0px;
+        -webkit-border-top-right-radius: 0px;
+        border-top-right-radius: 0px; }
+      .calendar .days .events td.continuation a {
+        -khtml-border-radius-bottomleft: 0px;
+        -moz-border-radius-bottomleft: 0px;
+        -webkit-border-bottom-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        -khtml-border-radius-topleft: 0px;
+        -moz-border-radius-topleft: 0px;
+        -webkit-border-top-left-radius: 0px;
+        border-top-left-radius: 0px; }

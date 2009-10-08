@@ -1,6 +1,7 @@
 !border_color = #ccc
+!border_width = 1px
 !event_spacing = 3px
-!grid_height = 100px
+!grid_height = 125px
 
 =round(!radius)
   :-khtml-border-radius= !radius
@@ -29,7 +30,7 @@
   :border-top-right-radius= 0px
 
 .calendar
-  border-bottom= 1px "solid" !border_color
+  border-bottom= !border_width "solid" !border_color
   
   table
     border-collapse: collapse
@@ -37,55 +38,56 @@
     width: 100%
     
     td
-      border-bottom: 0px solid transparent
       border-color= !border_color
+      border-width= !border_width
+      border-bottom: 0px solid transparent
       width: 14.285%
-  
-  table.grid
-    height= !grid_height
-    z-index: 1
   
   .days
     position: relative
   
-  .events
-    left: 0px
-    position: absolute
-    table-layout: fixed
-    text-align: left
-    top: 0px
-    z-index: 2
-    
-    td
-      border-bottom-width: 0px
-      border-left-width: 0px
-      border-top-width= !event_spacing
-      border-color: transparent
-      overflow: hidden
-      padding: 0
-      text-overflow: ellipsis
-      white-space: nowrap
-      
-      a
-        background-color: red
-        cursor: pointer
-        display: block
-        padding: 1px 3px
-        +round(5px)
-      
-      &:hover a, &.hover a
-        background-color: blue
-    
-    tr.grid td
-      border-top-width: 0px
-      height: 0px
-      
-    td.continued
+    table.grid
+      height= !grid_height
+      z-index: 1
   
-      a
-        +unround_right()
+    .events
+      left: 0px
+      position: absolute
+      table-layout: fixed
+      text-align: left
+      top: 0px
+      z-index: 2
     
-    td.continuation
+      td
+        border-bottom-width: 0px
+        border-left-width: 0px
+        border-top-width= !event_spacing
+        border-color: transparent
+        overflow: hidden
+        padding: 0
+        text-overflow: ellipsis
+        white-space: nowrap
+      
+        a
+          background-color: red
+          cursor: pointer
+          display: block
+          padding: 1px 3px
+          +round(5px)
+      
+        &:hover a, &.hover a
+          background-color: blue
     
-      a
-        +unround_left()
+      tr.grid td
+        border-top-width: 0px
+        height: 0px
+      
+      td.continued
+  
+        a
+          +unround_right()
+    
+      td.continuation
+    
+        a
+          +unround_left()
