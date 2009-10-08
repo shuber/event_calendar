@@ -8,7 +8,7 @@
       border-bottom: 0px solid transparent;
       border-color: #cccccc;
       width: 14.285%; }
-  .calendar .grid {
+  .calendar table.grid {
     height: 100px;
     z-index: 1; }
   .calendar .days {
@@ -16,14 +16,21 @@
   .calendar .events {
     left: 0px;
     position: absolute;
+    table-layout: fixed;
     text-align: left;
     top: 0px;
     z-index: 2; }
+    .calendar .events tr.grid td {
+      height: 0px; }
     .calendar .events td {
-      border-bottom: 0px solid transparent;
-      border-left: 0px solid transparent;
-      border-top: 0px solid transparent;
-      padding: 0; }
+      border-bottom-width: 0px;
+      border-left-width: 0px;
+      border-top-width: 0px;
+      border-color: transparent;
+      overflow: hidden;
+      padding: 0;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
       .calendar .events td a {
         background-color: red;
         cursor: pointer;

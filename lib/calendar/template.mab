@@ -57,6 +57,9 @@ div.calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!")
           unless week.events.empty?
             table.events.send("#{calendar.id}_events_#{week.first}_#{week.last}!") do
               tbody do
+                tr.grid do
+                  week.each { |day| td('') }
+                end
                 week.events.each do |row|
                   tr do
                     row.each do |cell|

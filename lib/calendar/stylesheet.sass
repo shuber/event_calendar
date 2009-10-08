@@ -40,7 +40,7 @@
       border-color= !border_color
       width: 14.285%
   
-  .grid
+  table.grid
     height= !grid_height
     z-index: 1
   
@@ -50,15 +50,23 @@
   .events
     left: 0px
     position: absolute
+    table-layout: fixed
     text-align: left
     top: 0px
     z-index: 2
     
+    tr.grid td
+      height: 0px
+    
     td
-      border-bottom: 0px solid transparent
-      border-left: 0px solid transparent
-      border-top: 0px solid transparent
+      border-bottom-width: 0px
+      border-left-width: 0px
+      border-top-width: 0px
+      border-color: transparent
+      overflow: hidden
       padding: 0
+      text-overflow: ellipsis
+      white-space: nowrap
       
       a
         background-color: red
