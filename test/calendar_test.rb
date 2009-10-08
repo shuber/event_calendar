@@ -5,7 +5,9 @@ require 'markaby'
 require 'timecop'
 require File.dirname(__FILE__) + '/../lib/calendar'
 
-Event = Struct.new(:title, :starts_at, :ends_at)
+Event = Struct.new(:title, :starts_at, :ends_at) do
+  def id; object_id; end
+end
 
 class CalendarTest < Test::Unit::TestCase
   
