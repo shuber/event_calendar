@@ -1,5 +1,7 @@
-require 'calendar/week'
 require 'calendar/event'
+require 'calendar/week'
+
+Date.class_eval { attr_accessor :events }
 
 class Calendar
   
@@ -24,12 +26,12 @@ class Calendar
   
   def initialize(year = Time.now.year, month = Time.now.month, events = [], options = {})
     self.year, self.month, self.options = year, month, self.class.default_options.merge(options)
-    self.events = events.collect { |event| Event.new(event, self.options) }
+    self.events = events.collect { |event| Event.new(event, self.options) }.sort_by(&:start)
     yield self if block_given?
   end
   
   def date
-    Date.civil(self.year, self.month, 1)
+    Date.civil(year, month, 1)
   end
   memoize :date
   
@@ -49,13 +51,10 @@ class Calendar
   end
   
   def weeks
-    days_in_month = Time.days_in_month(self.month, self.year)
+    days_in_month = Time.days_in_month(month, year)
     starting_day = date.beginning_of_week() -1.day + beginning_of_week.days
     ending_day = (date + days_in_month).end_of_week() -1.day + beginning_of_week.days
-    (starting_day..ending_day).to_a.in_groups_of(7).map do |week| 
-      events_during_this_week = self.events.select { |event| event.start_date <= week.last && event.end_date >= week.first }
-      Week.new(week, events_during_this_week, options)
-    end
+    (starting_day..ending_day).to_a.in_groups_of(7).collect { |week| Week.new(week, events) }
   end
   memoize :weeks
   

@@ -3,32 +3,30 @@ class Calendar
     
     extend ActiveSupport::Memoizable
     
-    def initialize(array, events, options)
-      super(array)
-      @events = events.sort_by(&:start)
-      @options = options
+    def initialize(days, events)
+      super days
+      each { |day| day.events = events.select { |event| event.start_date == day || (event.start_date < day && event.end_date >= day && day == days.first) } }
     end
     
     def events
-      week_events = inject([]) do |week, day|
-        week << @events.select do |event| 
-          (event.start_date == day || (event.start_date < day && day == first)) && event.end_date >= day
-        end.map do |event| 
-          [event, event.days(first, last), event.start_date < first || event.end_date > last]
-        end
-      end
-      
-      rows = []
-      until week_events.all? { |day| day.empty? }
+      events = []
+      until all? { |day| day.events.empty? }
         row = []
-        week_events.each_with_index do |day, index|
-          cells = row.inject(0) { |sum, event| sum += (event.empty? ? 1 : event[1]) }
-          next if cells > index || cells >= 7
-          row << (day.empty? ? [] : day.shift)
+        each_with_index do |day, index|
+          cell_count = row.inject(0) { |sum, cell| sum += (cell.empty? ? 1 : cell[:span]) }
+          next if cell_count > index || cell_count >= 7
+          
+          cell = {}
+          unless day.events.empty?
+            cell[:event] = day.events.shift
+            cell[:span] = cell[:event].days(first, last)
+            cell[:continued] = cell[:event].days != cell[:span]
+          end
+          row << cell
         end
-        rows << row
+        events << row
       end
-      rows
+      events
     end
     memoize :events
       
