@@ -73,16 +73,16 @@ div.calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!")
                           html_options[:class] << ' continuation' if cell[:event].start_date < week.first
                           html_options[:class] << ' continued' if cell[:event].end_date > week.last
                         end
-                        td(html_options) do
-                          event_id = "event_#{cell[:event].id}"
-                          begin
-                            a.send("#{event_id}!", { :title => cell[:event].title }) do
+                        event_id = "event_#{cell[:event].id}"
+                        begin
+                          td.send("#{event_id}!", html_options) do
+                            a(:title => cell[:event].title) do
                               cell[:event].title
                             end
-                          rescue Markaby::InvalidXhtmlError
-                            event_id = event_id.gsub(/^event_(\d+)(_(\d+))?$/) { |match| "event_#{$1}_#{$3.to_i + 1}" }
-                            retry
                           end
+                        rescue Markaby::InvalidXhtmlError
+                          event_id = event_id.gsub(/^event_(\d+)(_(\d+))?$/) { |match| "event_#{$1}_#{$3.to_i + 1}" }
+                          retry
                         end
                       end
                     end

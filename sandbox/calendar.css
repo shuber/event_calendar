@@ -20,12 +20,10 @@
     text-align: left;
     top: 0px;
     z-index: 2; }
-    .calendar .events tr.grid td {
-      height: 0px; }
     .calendar .events td {
       border-bottom-width: 0px;
       border-left-width: 0px;
-      border-top-width: 0px;
+      border-top-width: 5px;
       border-color: transparent;
       overflow: hidden;
       padding: 0;
@@ -35,14 +33,16 @@
         background-color: red;
         cursor: pointer;
         display: block;
-        margin-top: 5px;
         padding: 1px 3px;
         -khtml-border-radius: 5px;
         -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
         border-radius: 5px; }
-        .calendar .events td a:hover, .calendar .events td a.hover {
-          background-color: blue; }
+      .calendar .events td:hover a, .calendar .events td.hover a {
+        background-color: blue; }
+    .calendar .events tr.grid td {
+      border-top-width: 0px;
+      height: 0px; }
     .calendar .events td.continued a {
       -khtml-border-radius-bottomright: 0px;
       -moz-border-radius-bottomright: 0px;

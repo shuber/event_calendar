@@ -55,13 +55,10 @@
     top: 0px
     z-index: 2
     
-    tr.grid td
-      height: 0px
-    
     td
       border-bottom-width: 0px
       border-left-width: 0px
-      border-top-width: 0px
+      border-top-width: 5px
       border-color: transparent
       overflow: hidden
       padding: 0
@@ -72,12 +69,15 @@
         background-color: red
         cursor: pointer
         display: block
-        margin-top: 5px
         padding: 1px 3px
         +round(5px)
-        
-        &:hover, &.hover
-          background-color: blue
+      
+      &:hover a, &.hover a
+        background-color: blue
+    
+    tr.grid td
+      border-top-width: 0px
+      height: 0px
       
     td.continued
   

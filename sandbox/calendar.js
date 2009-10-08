@@ -1,6 +1,6 @@
 var Calendar = Class.create({
   
-  options: $H({ events_css_path: '.event a' }),
+  options: $H({ events_css_path: '.event' }),
   
   initialize: function(element, options) {
     this.element = element;
