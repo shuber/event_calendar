@@ -67,8 +67,8 @@ div.calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!")
                         html_options[:colspan] = cell[:span] unless cell[:span] == 1
                         html_options[:class] << " #{calendar.event_class}" unless calendar.event_class.nil?
                         if cell[:continued]
-                          type = cell[:event].start_date < week.first ? 'continuation' : 'continued'
-                          html_options[:class] << " #{type}"
+                          html_options[:class] << ' continuation' if cell[:event].start_date < week.first
+                          html_options[:class] << ' continued' if cell[:event].end_date > week.last
                         end
                         td(html_options) do
                           event_id = "event_#{cell[:event].id}"
@@ -77,7 +77,7 @@ div.calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!")
                               cell[:event].title
                             end
                           rescue Markaby::InvalidXhtmlError
-                            event_id = event_id.gsub(/^event_(.+)(_(\d+))?$/) { |match| "event_#{$1}_#{$3.to_i + 1}" }
+                            event_id = event_id.gsub(/^event_(\d+)(_(\d+))?$/) { |match| "event_#{$1}_#{$3.to_i + 1}" }
                             retry
                           end
                         end
