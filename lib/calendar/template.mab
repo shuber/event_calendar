@@ -8,7 +8,7 @@ div.calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!")
           td.next_month calendar.date.next_month.strftime('%B'), :colspan => 2
         end
         tr.labels do
-          calendar.weeks.first.each do |day|
+          calendar.weeks.first.each_with_index do |day, index|
             day_label = td.day
             day_label = day_label.send(day.strftime('%A').downcase)
             day_label = day_label.today if day.cwday == Time.now.to_date.cwday
@@ -32,6 +32,7 @@ div.calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!")
                 day_label = day_label.send(day.strftime('%B').downcase)
                 day_label = day_label.send("day_#{day.strftime('%d').gsub(/^0/, '')}")
                 day_label = day_label.today if day == Time.now.to_date
+                day_label = day_label.scheduled if calendar.events.any? { |event| event.start_date <= day && event.end_date >= day }
                 day_label.label day.strftime('%d').gsub(/^0/, '')
               end
             end
@@ -49,6 +50,7 @@ div.calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!")
                   day_grid = day_grid.send(day.strftime('%B').downcase)
                   day_grid = day_grid.send("day_#{day.strftime('%d').gsub(/^0/, '')}")
                   day_grid = day_grid.today if day == Time.now.to_date
+                  day_grid = day_grid.scheduled if calendar.events.any? { |event| event.start_date <= day && event.end_date >= day }
                   day_grid.send("#{calendar.id}_day_#{day}!") {}
                 end
               end
