@@ -28,7 +28,10 @@ namespace :calendar do
       require 'haml'
       require 'sass/engine'
       file = File.join(File.dirname(__FILE__), 'lib', 'calendar', 'stylesheet.sass')
-      puts Sass::Engine.new(File.read(file)).to_css
+      css = Sass::Engine.new(File.read(file)).to_css
+      sandbox = File.join(File.dirname(__FILE__), 'sandbox')
+      File.open(File.join(sandbox, 'calendar.css'), 'w+') { |file| file.write css } if File.exists?(sandbox)
+      puts css
     end
   end
 end

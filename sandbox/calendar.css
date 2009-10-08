@@ -34,7 +34,7 @@
         -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
         border-radius: 5px; }
-        .calendar .events td a:hover {
+        .calendar .events td a:hover, .calendar .events td a.hover {
           background-color: blue; }
     .calendar .events td.continued a {
       -khtml-border-radius-bottomright: 0px;
