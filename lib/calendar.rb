@@ -22,6 +22,7 @@ class Calendar
       :event_end          => :ends_at,
       :event_output       => proc { |event| "<a href=\"#\" title=\"#{event.title}\">#{event.title}</a>" },
       :event_fields       => [:id, :title, :start, :end],
+      :navigation_url     => proc { |month, year| '#' },
       :template           => File.join(File.dirname(__FILE__), 'calendar', 'template.mab')
     }
   end
