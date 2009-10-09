@@ -1,7 +1,7 @@
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
- 
+
 desc 'Default: run the sortable tests'
 task :default => :test
  
