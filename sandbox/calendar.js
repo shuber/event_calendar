@@ -9,6 +9,8 @@ var Calendar = Class.create({
     
     this.add_fields_to_events();
     this.add_hover_behavior_to_events();
+    
+    Calendar.instances.push(this);
   },
   
   add_fields_to_events: function() {

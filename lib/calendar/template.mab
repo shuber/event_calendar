@@ -5,13 +5,13 @@ div.calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!")
         tr.navigation do
           td.previous_month(:colspan => 2) do
             a(:rel => 'previous', :href => calendar.navigation_url.call(calendar.date.last_month)) do
-              calendar.date.last_month.strftime('%B')
+              calendar.evaluate_date_format_option(:navigation_label, calendar.date.last_month, calendar.date)
             end
           end
-          td.current_month calendar.date.strftime('%B %Y'), :colspan => 3
+          td.current_month calendar.evaluate_date_format_option(:header_label, calendar.date), :colspan => 3
           td.next_month(:colspan => 2) do
             a(:rel => 'next', :href => calendar.navigation_url.call(calendar.date.next_month)) do
-              calendar.date.next_month.strftime('%B')
+              calendar.evaluate_date_format_option(:navigation_label, calendar.date.next_month, calendar.date)
             end
           end
         end
@@ -20,7 +20,7 @@ div.calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!")
             day_label = td.day
             day_label = day_label.send(day.strftime('%A').downcase)
             day_label = day_label.today if day.cwday == Time.now.to_date.cwday
-            day_label.label day.strftime('%a')
+            day_label.label calendar.evaluate_date_format_option(:header_day_label, day)
           end
         end
       end
@@ -41,7 +41,7 @@ div.calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!")
                 day_label = day_label.send("day_#{day.strftime('%d').gsub(/^0/, '')}")
                 day_label = day_label.today if day == Time.now.to_date
                 day_label = day_label.scheduled if calendar.events.any? { |event| event.start_date <= day && event.end_date >= day }
-                day_label.label day.strftime('%d').gsub(/^0/, '')
+                day_label.label calendar.evaluate_date_format_option(:day_label, day)
               end
             end
           end

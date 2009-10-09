@@ -15,6 +15,7 @@ class Calendar
     @default_options ||= {
       :id                 => 'calendar',
       :beginning_of_week  => 0,
+      :day_label          => proc { |date| date.strftime('%d').gsub(/^0/, '') },
       :event_class        => nil,
       :event_id           => :id,
       :event_title        => :title,
@@ -22,6 +23,9 @@ class Calendar
       :event_end          => :ends_at,
       :event_output       => proc { |event| "<a href=\"#\" title=\"#{event.title}\">#{event.title}</a>" },
       :event_fields       => [:id, :title, :start, :end],
+      :header_label       => '%B %Y',
+      :header_day_label   => '%a',
+      :navigation_label   => '%B',
       :navigation_url     => proc { |date| '#' },
       :template           => File.join(File.dirname(__FILE__), 'calendar', 'template.mab')
     }
@@ -37,6 +41,20 @@ class Calendar
     Date.civil(year, month, 1)
   end
   memoize :date
+  
+  def evaluate_date_format_option(option, *args)
+    value = self.send(option)
+    case value
+    when String
+      args.first.strftime(value)
+    when Symbol
+      args.first.send(value)
+    when Proc
+      value.call(*args)
+    else
+      value
+    end
+  end
   
   def method_missing(method, *args)
     if method.to_s =~ /^([^=]+)(=?)$/ && options.has_key?($1.to_sym)
