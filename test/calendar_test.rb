@@ -24,7 +24,7 @@ class CalendarTest < Test::Unit::TestCase
         Event.new('Event 5 spans across multiple weeks', 4.days.from_now, 12.days.from_now)
       ]
 
-      c = Calendar.new(Time.now.year, Time.now.month, events)
+      c = Calendar.new(Time.now.year, Time.now.month, :events => events)
       puts c.to_html
     end
   end

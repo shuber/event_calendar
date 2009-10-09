@@ -23,6 +23,7 @@ class Calendar
       :event_end          => :ends_at,
       :event_output       => proc { |event| "<a href=\"#\" title=\"#{event.title}\">#{event.title}</a>" },
       :event_fields       => [:id, :title, :start, :end],
+      :events             => [],
       :header_label       => '%B %Y',
       :header_day_label   => '%a',
       :navigation_label   => '%B',
@@ -31,9 +32,9 @@ class Calendar
     }
   end
   
-  def initialize(year = Time.now.year, month = Time.now.month, events = [], options = {})
+  def initialize(year = Time.now.year, month = Time.now.month, options = {})
     self.year, self.month, self.options = year, month, self.class.default_options.merge(options)
-    self.events = events.collect { |event| Event.new(event, self.options) }.sort_by(&:start)
+    self.events = self.options.delete(:events).collect { |event| Event.new(event, self.options) }.sort_by(&:start)
     yield self if block_given?
   end
   
@@ -65,11 +66,12 @@ class Calendar
     end
   end
   
-  def to_html
+  def to_s
     date(:reload)
     weeks(:reload)
     render
   end
+  alias_method :to_html, :to_s
   
   def weeks
     days_in_month = Time.days_in_month(month, year)
