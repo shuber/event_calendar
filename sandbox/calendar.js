@@ -1,6 +1,10 @@
 var Calendar = Class.create({
 
-  options: $H({ events_css_path: '.event', event_fields_css_path: '.fields span' }),
+  options: $H({ 
+    events_css_path: '.event', 
+    event_fields_css_path: '.fields span',
+    event_hover_class: 'hover'
+  }),
   
   initialize: function(element, options) {
     this.element = element;
@@ -14,30 +18,32 @@ var Calendar = Class.create({
   },
   
   add_fields_to_events: function() {
-      this.events.each(function(event) {
-          event.fields = $$('#' + event.id + ' ' + this.options.get('event_fields_css_path')).inject({}, function(fields, element) {
-              fields[element.title] = element.innerHTML;
-              return fields;
-          });
-      }.bind(this));
+    this.events.each(function(event) {
+      event.fields = $$('#' + event.id + ' ' + this.options.get('event_fields_css_path')).inject({}, function(fields, element) {
+        fields[element.title] = element.innerHTML;
+        return fields;
+      });
+    }.bind(this));
   },
   
   add_hover_behavior_to_events: function() {
-      this.events.each(function(event) {
-        var related_events = this.related_events_for(event);
-        
-        event.observe('mouseover', function() {
-          related_events.each(function(related_event) {
-            related_event.addClassName('hover');
-          });
+    var hover_class_name = this.options.get('event_hover_class');
+    
+    this.events.each(function(event) {
+      var related_events = this.related_events_for(event);
+      
+      event.observe('mouseover', function() {
+        related_events.each(function(related_event) {
+          related_event.addClassName(hover_class_name);
         });
-        
-        event.observe('mouseout', function() {
-          related_events.each(function(related_event) {
-            related_event.removeClassName('hover');
-          });
+      });
+      
+      event.observe('mouseout', function() {
+        related_events.each(function(related_event) {
+          related_event.removeClassName(hover_class_name);
         });
-      }.bind(this));
+      });
+    }.bind(this));
   },
   
   related_events_for: function(event) {
