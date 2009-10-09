@@ -1,17 +1,12 @@
-require 'test/unit'
-require 'rubygems'
-require 'active_support'
-require 'markaby'
-require 'timecop'
-require File.dirname(__FILE__) + '/../lib/calendar'
+require 'test_helper'
 
 Event = Struct.new(:title, :starts_at, :ends_at) do
   def id; object_id; end
 end
 
 class CalendarTest < Test::Unit::TestCase
-  
-  def test_this_lib
+
+  should 'print out a calender' do
     Timecop.freeze(Date.civil(2009, 10, 6)) do
       events = [
         Event.new('Event 1', Time.now, 10.minutes.from_now),
@@ -23,7 +18,7 @@ class CalendarTest < Test::Unit::TestCase
         Event.new('Event 4 has a longer title', 3.days.from_now, 5.days.from_now),
         Event.new('Event 5 spans across multiple weeks', 4.days.from_now, 12.days.from_now)
       ]
-
+      
       c = Calendar.new(Time.now.year, Time.now.month, :events => events)
       puts c.to_html
     end
