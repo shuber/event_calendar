@@ -41,6 +41,8 @@
   .calendar table td {
     border-color: #d4d5d4;
     border-width: 1px; }
+  .calendar .navigation td {
+    border-color: transparent; }
   .calendar table.grid {
     background-color: #fefffe;
     height: 125px; }
