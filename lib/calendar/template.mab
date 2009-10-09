@@ -4,13 +4,13 @@ div.calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!")
       tbody do
         tr.navigation do
           td.previous_month(:colspan => 2) do
-            a(:rel => 'previous', :href => calendar.navigation_url.call(calendar.date.last_month.month, calendar.date.last_month.year)) do
+            a(:rel => 'previous', :href => calendar.navigation_url.call(calendar.date.last_month)) do
               calendar.date.last_month.strftime('%B')
             end
           end
           td.current_month calendar.date.strftime('%B %Y'), :colspan => 3
           td.next_month(:colspan => 2) do
-            a(:rel => 'next', :href => calendar.navigation_url.call(calendar.date.next_month.month, calendar.date.next_month.year)) do
+            a(:rel => 'next', :href => calendar.navigation_url.call(calendar.date.next_month)) do
               calendar.date.next_month.strftime('%B')
             end
           end
