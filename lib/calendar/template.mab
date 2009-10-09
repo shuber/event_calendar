@@ -78,8 +78,10 @@ div.calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!")
                         event_id = "event_#{cell[:event].id}"
                         begin
                           td.send("#{event_id}!", html_options) do
-                            a(:title => cell[:event].title) do
-                              cell[:event].title
+                            calendar.event_output.call(cell[:event]) + div.fields do
+                              calendar.event_fields.each do |field|
+                                span(cell[:event].send(field), :title => field)
+                              end
                             end
                           end
                         rescue Markaby::InvalidXhtmlError

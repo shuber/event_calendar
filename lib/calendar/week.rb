@@ -5,7 +5,7 @@ class Calendar
     
     def initialize(days, events)
       super days
-      each { |day| day.events = events.select { |event| event.start_date == day || (event.start_date < day && event.end_date >= day && day == days.first) } }
+      each { |day| day.events = events.select { |event| event.start_date == day || (event.start_date < day && event.end_date >= day && day == first) } }
     end
     
     def events
