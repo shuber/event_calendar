@@ -1,1 +1,6 @@
 .DS_Store
+*.sw?
+coverage
+rdoc
+pkg
+sandbox
