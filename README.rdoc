@@ -1,4 +1,4 @@
-= calendar
+= event_calendar
 
 Generates HTML event calendars with ruby
 
@@ -6,7 +6,7 @@ INCOMPLETE
 
 == Installation
 
-  gem install shuber-calendar --source http://gemcutter.org
+  gem install event_calendar --source http://gemcutter.org
 
 == Usage
 

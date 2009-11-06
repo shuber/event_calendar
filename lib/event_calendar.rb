@@ -1,3 +1,6 @@
+require 'activesupport'
+require 'markaby'
+require 'haml'
 require 'calendar/event'
 require 'calendar/week'
 

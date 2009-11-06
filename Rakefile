@@ -4,16 +4,16 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = 'shuber-calendar'
+    gem.name = 'event_calendar'
     gem.summary = 'Generates HTML event calendars'
     gem.description = 'Generates HTML event calendars'
     gem.email = 'shuber@huberry.com'
-    gem.homepage = 'http://github.com/shuber/calendar'
+    gem.homepage = 'http://github.com/shuber/event_calendar'
     gem.authors = ['Sean Huber']
     gem.add_dependency 'activesupport'
     gem.add_dependency 'markaby'
     gem.add_dependency 'haml'
-    gem.add_development_dependency 'thoughtbot-shoulda'
+    gem.add_development_dependency 'shoulda'
     gem.add_development_dependency 'timecop'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
@@ -54,7 +54,7 @@ Rake::RDocTask.new do |rdoc|
   end
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "calendar #{version}"
+  rdoc.title = "event_calendar #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
