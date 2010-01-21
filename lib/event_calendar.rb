@@ -1,12 +1,12 @@
 require 'activesupport'
 require 'markaby'
 require 'haml'
-require 'calendar/event'
-require 'calendar/week'
+require 'event_calendar/event'
+require 'event_calendar/week'
 
 Date.class_eval { attr_accessor :events }
 
-class Calendar
+class EventCalendar
 
   extend ActiveSupport::Memoizable
   

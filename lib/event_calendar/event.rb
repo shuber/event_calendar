@@ -1,4 +1,4 @@
-class Calendar
+class EventCalendar
   class Event
     
     undef_method :id

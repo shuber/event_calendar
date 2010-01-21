@@ -10,7 +10,7 @@ INCOMPLETE
 
 == Usage
 
-  @calendar = Calendar.new(2009, 10, :events => Event.all)
+  @calendar = EventCalendar.new(2009, 10, :events => Event.all)
   puts @calendar.to_html
 
 == Note on Patches/Pull Requests

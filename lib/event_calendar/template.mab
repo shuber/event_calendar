@@ -1,4 +1,4 @@
-div.calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!") do
+div.event_calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!") do
   div.header do
     table do
       tbody do

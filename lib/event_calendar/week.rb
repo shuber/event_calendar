@@ -1,4 +1,4 @@
-class Calendar
+class EventCalendar
   class Week < Array
     
     extend ActiveSupport::Memoizable
