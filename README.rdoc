@@ -2,16 +2,17 @@
 
 Generates HTML event calendars with ruby
 
-INCOMPLETE
 
 == Installation
 
-  gem install event_calendar --source http://gemcutter.org
+  gem install event_calendar
+
 
 == Usage
 
   @event_calendar = EventCalendar.new(2009, 10, :events => Event.all)
   puts @event_calendar.to_html
+
 
 == Note on Patches/Pull Requests
  
@@ -23,6 +24,7 @@ INCOMPLETE
   (if you want to have your own version, that is fine but
    bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
+
 
 == Copyright
 

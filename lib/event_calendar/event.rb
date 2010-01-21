@@ -36,7 +36,7 @@ class EventCalendar
           when Symbol
             @event.send(value)
           when Proc
-            proc.call(self)
+            value.call(self)
           else
             value
         end

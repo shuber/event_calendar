@@ -1,26 +1,6 @@
 require 'rubygems'
 require 'rake'
 
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name = 'event_calendar'
-    gem.summary = 'Generates HTML event calendars'
-    gem.description = 'Generates HTML event calendars'
-    gem.email = 'shuber@huberry.com'
-    gem.homepage = 'http://github.com/shuber/event_calendar'
-    gem.authors = ['Sean Huber']
-    gem.add_dependency 'active_support'
-    gem.add_dependency 'markaby'
-    gem.add_dependency 'haml'
-    gem.add_development_dependency 'shoulda'
-    gem.add_development_dependency 'timecop'
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
-  end
-rescue LoadError
-  puts 'Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler'
-end
-
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
   test.libs << 'lib' << 'test'
@@ -40,8 +20,6 @@ rescue LoadError
     abort 'RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov'
   end
 end
-
-task :test => :check_dependencies
 
 task :default => :test
 

@@ -9,3 +9,7 @@ require 'event_calendar'
 
 class Test::Unit::TestCase
 end
+
+Event = Struct.new(:title, :starts_at, :ends_at) do
+  def id; object_id; end
+end
