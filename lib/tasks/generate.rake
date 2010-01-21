@@ -52,10 +52,10 @@ namespace :calendar do
             <head>
                 <title>Event Calendar</title>
                 <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-                <link href="stylesheets/yui-2.7.0.css" media="screen" rel="stylesheet" type="text/css" />
+                <link href="http://yui.yahooapis.com/combo?2.7.0/build/reset-fonts-grids/reset-fonts-grids.css&amp;2.7.0/build/base/base-min.css" media="screen" rel="stylesheet" type="text/css" />
                 <link href="stylesheets/event_calendar.css" media="screen" rel="stylesheet" type="text/css" />
-                <script src="javascripts/prototype-1.6.1.js" type="text/javascript"></script>
-                <script src="javascripts/event_calendar.js" type="text/javascript"></script>
+                <script src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js" type="text/javascript"></script>
+                <script src="javascripts/event_calendar.prototype.js" type="text/javascript"></script>
                 <script type="text/javascript">
                     //<![CDATA[
                     document.observe('dom:loaded', function() {
