@@ -59,7 +59,7 @@ namespace :calendar do
                 <script type="text/javascript">
                     //<![CDATA[
                     document.observe('dom:loaded', function() {
-                      $$('.calendar').each(function(element) {
+                      $$('.event_calendar').each(function(element) {
                         new EventCalendar(element);
                       });
                     });
