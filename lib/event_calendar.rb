@@ -16,7 +16,7 @@ class EventCalendar
   
   def self.default_options
     @default_options ||= {
-      :id                 => 'calendar',
+      :id                 => 'event_calendar',
       :beginning_of_week  => 0,
       :day_label          => proc { |date| date.strftime('%d').gsub(/^0/, '') },
       :event_class        => nil,
