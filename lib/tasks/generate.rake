@@ -13,7 +13,7 @@ namespace :calendar do
     
     desc 'Generates js for the calendar'
     task :js do
-      puts File.read(File.join(ASSETS_ROOT, 'javascripts', 'event_calendar.js'))
+      puts File.read(File.join(ASSETS_ROOT, 'javascripts', 'event_calendar.prototype.js'))
     end
     
     desc 'Creates a sandbox in the gem root for testing'
@@ -42,7 +42,7 @@ namespace :calendar do
           Event.new('Event 4 has a longer title', 3.days.from_now, 5.days.from_now),
           Event.new('Event 5 spans across multiple weeks', 4.days.from_now, 12.days.from_now)
         ]
-        @calendar = EventCalendar.new(Time.now.year, Time.now.month, :events => events)
+        @event_calendar = EventCalendar.new(Time.now.year, Time.now.month, :events => events)
       end
       
       File.open(File.join(SANDBOX_ROOT, 'index.html'), 'w+') do |file|
@@ -67,7 +67,7 @@ namespace :calendar do
                 </script>
             </head>
             <body>
-              #{@calendar}
+              #{@event_calendar}
             </body>
         </html>
         EOF

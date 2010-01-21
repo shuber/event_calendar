@@ -91,7 +91,7 @@ class EventCalendar
     end
     
     def render_with_markaby
-      Markaby::Builder.new(:calendar => self, :template => File.read(template)) { eval(template) }.to_s
+      Markaby::Builder.new(:event_calendar => self, :template => File.read(template)) { eval(template) }.to_s
     end
     
 end

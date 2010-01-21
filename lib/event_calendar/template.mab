@@ -1,71 +1,71 @@
-div.event_calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.id}!") do
+div.event_calendar.send(event_calendar.date.strftime('%B').downcase).send("#{event_calendar.id}!") do
   div.header do
     table do
       tbody do
         tr.navigation do
           td.previous_month(:colspan => 2) do
-            a(:rel => 'previous', :href => calendar.navigation_url.call(calendar.date.last_month)) do
-              calendar.evaluate_date_format_option(:navigation_label, calendar.date.last_month, calendar.date)
+            a(:rel => 'previous', :href => event_calendar.navigation_url.call(event_calendar.date.last_month)) do
+              event_calendar.evaluate_date_format_option(:navigation_label, event_calendar.date.last_month, event_calendar.date)
             end
           end
-          td.current_month calendar.evaluate_date_format_option(:header_label, calendar.date), :colspan => 3
+          td.current_month event_calendar.evaluate_date_format_option(:header_label, event_calendar.date), :colspan => 3
           td.next_month(:colspan => 2) do
-            a(:rel => 'next', :href => calendar.navigation_url.call(calendar.date.next_month)) do
-              calendar.evaluate_date_format_option(:navigation_label, calendar.date.next_month, calendar.date)
+            a(:rel => 'next', :href => event_calendar.navigation_url.call(event_calendar.date.next_month)) do
+              event_calendar.evaluate_date_format_option(:navigation_label, event_calendar.date.next_month, event_calendar.date)
             end
           end
         end
         tr.labels do
-          calendar.weeks.first.each_with_index do |day, index|
+          event_calendar.weeks.first.each_with_index do |day, index|
             day_label = td.day
             day_label = day_label.send(day.strftime('%A').downcase)
             day_label = day_label.today if day.cwday == Time.now.to_date.cwday
-            day_label.label calendar.evaluate_date_format_option(:header_day_label, day)
+            day_label.label event_calendar.evaluate_date_format_option(:header_day_label, day)
           end
         end
       end
     end
   end
   div.body do
-    calendar.weeks.each do |week|
-      div.week.send("#{calendar.id}_week_#{week.first}_#{week.last}!") do
-        table.send("#{calendar.id}_labels_#{week.first}_#{week.last}!") do
+    event_calendar.weeks.each do |week|
+      div.week.send("#{event_calendar.id}_week_#{week.first}_#{week.last}!") do
+        table.send("#{event_calendar.id}_labels_#{week.first}_#{week.last}!") do
           tbody do
             tr.labels do
               week.each do |day|
                 day_label = td.day
-                day_label = day_label.send(day.month == calendar.date.month ? 'current_month' : day < calendar.date ? 'previous_month' : 'next_month')
+                day_label = day_label.send(day.month == event_calendar.date.month ? 'current_month' : day < event_calendar.date ? 'previous_month' : 'next_month')
                 day_label = day_label.send([6, 7].include?(day.cwday) ? 'weekend' : 'weekday')
                 day_label = day_label.send(day.strftime('%A').downcase)
                 day_label = day_label.send(day.strftime('%B').downcase)
                 day_label = day_label.send("day_#{day.strftime('%d').gsub(/^0/, '')}")
                 day_label = day_label.today if day == Time.now.to_date
-                day_label = day_label.scheduled if calendar.events.any? { |event| event.start_date <= day && event.end_date >= day }
-                day_label.label calendar.evaluate_date_format_option(:day_label, day)
+                day_label = day_label.scheduled if event_calendar.events.any? { |event| event.start_date <= day && event.end_date >= day }
+                day_label.label event_calendar.evaluate_date_format_option(:day_label, day)
               end
             end
           end
         end
-        div.days.send("#{calendar.id}_days_#{week.first}_#{week.last}!") do
-          table.grid.send("#{calendar.id}_grid_#{week.first}_#{week.last}!") do
+        div.days.send("#{event_calendar.id}_days_#{week.first}_#{week.last}!") do
+          table.grid.send("#{event_calendar.id}_grid_#{week.first}_#{week.last}!") do
             tbody do
               tr do
                 week.each do |day| 
                   day_grid = td.day
-                  day_grid = day_grid.send(day.month == calendar.date.month ? 'current_month' : day < calendar.date ? 'previous_month' : 'next_month')
+                  day_grid = day_grid.send(day.month == event_calendar.date.month ? 'current_month' : day < event_calendar.date ? 'previous_month' : 'next_month')
                   day_grid = day_grid.send([6, 7].include?(day.cwday) ? 'weekend' : 'weekday')
                   day_grid = day_grid.send(day.strftime('%A').downcase)
                   day_grid = day_grid.send(day.strftime('%B').downcase)
                   day_grid = day_grid.send("day_#{day.strftime('%d').gsub(/^0/, '')}")
                   day_grid = day_grid.today if day == Time.now.to_date
-                  day_grid = day_grid.scheduled if calendar.events.any? { |event| event.start_date <= day && event.end_date >= day }
-                  day_grid.send("#{calendar.id}_day_#{day}!") {}
+                  day_grid = day_grid.scheduled if event_calendar.events.any? { |event| event.start_date <= day && event.end_date >= day }
+                  day_grid.send("#{event_calendar.id}_day_#{day}!") {}
                 end
               end
             end
           end
           unless week.events.empty?
-            table.events.send("#{calendar.id}_events_#{week.first}_#{week.last}!") do
+            table.events.send("#{event_calendar.id}_events_#{week.first}_#{week.last}!") do
               tbody do
                 tr.grid do
                   week.each { |day| td('') }
@@ -78,7 +78,7 @@ div.event_calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.
                       else
                         html_options = { :class => 'event' }
                         html_options[:colspan] = cell[:span] unless cell[:span] == 1
-                        html_options[:class] << " #{calendar.event_class}" unless calendar.event_class.nil?
+                        html_options[:class] << " #{event_calendar.event_class}" unless event_calendar.event_class.nil?
                         if cell[:continued]
                           html_options[:class] << ' continuation' if cell[:event].start_date < week.first
                           html_options[:class] << ' continued' if cell[:event].end_date > week.last
@@ -86,8 +86,8 @@ div.event_calendar.send(calendar.date.strftime('%B').downcase).send("#{calendar.
                         event_id = "event_#{cell[:event].id}"
                         begin
                           td.send("#{event_id}!", html_options) do
-                            calendar.event_output.call(cell[:event]) + div.fields do
-                              calendar.event_fields.each do |field|
+                            event_calendar.event_output.call(cell[:event]) + div.fields do
+                              event_calendar.event_fields.each do |field|
                                 span(cell[:event].send(field), :title => field)
                               end
                             end
