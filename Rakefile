@@ -10,7 +10,7 @@ begin
     gem.email = 'shuber@huberry.com'
     gem.homepage = 'http://github.com/shuber/event_calendar'
     gem.authors = ['Sean Huber']
-    gem.add_dependency 'activesupport'
+    gem.add_dependency 'active_support'
     gem.add_dependency 'markaby'
     gem.add_dependency 'haml'
     gem.add_development_dependency 'shoulda'

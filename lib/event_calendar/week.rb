@@ -29,6 +29,6 @@ class EventCalendar
       events
     end
     memoize :events
-      
+    
   end
 end

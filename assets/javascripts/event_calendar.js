@@ -1,4 +1,4 @@
-var Calendar = Class.create({
+var EventCalendar = Class.create({
 
   options: $H({ 
     events_css_path: '.event', 
@@ -16,7 +16,7 @@ var Calendar = Class.create({
       this.add_hover_behavior_to_event(event);
     }.bind(this));
     
-    Calendar.instances.push(this);
+    EventCalendar.instances.push(this);
   },
   
   add_fields_to_event: function(event) {
@@ -52,4 +52,4 @@ var Calendar = Class.create({
   
 });
 
-Calendar.instances = [];
+EventCalendar.instances = [];

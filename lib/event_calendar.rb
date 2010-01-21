@@ -1,4 +1,4 @@
-require 'activesupport'
+require 'active_support'
 require 'markaby'
 require 'haml'
 require 'event_calendar/event'
@@ -31,7 +31,7 @@ class EventCalendar
       :header_day_label   => '%a',
       :navigation_label   => '%B',
       :navigation_url     => proc { |date| '#' },
-      :template           => File.join(File.dirname(__FILE__), 'calendar', 'template.mab')
+      :template           => File.join(File.dirname(__FILE__), 'event_calendar', 'template.mab')
     }
   end
   
