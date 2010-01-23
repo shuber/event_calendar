@@ -4,14 +4,14 @@ EVENT_CALENDAR_ROOT = File.join(File.dirname(__FILE__), '..', '..')
 ASSETS_ROOT = File.join(EVENT_CALENDAR_ROOT, 'assets')
 SANDBOX_ROOT = File.join(EVENT_CALENDAR_ROOT, 'sandbox')
 
-namespace :calendar do
+namespace :event_calendar do
   namespace :generate do
-    desc 'Generates css for the calendar'
+    desc 'Generates css for the event calendar'
     task :css => :build_css do
       puts File.read(File.join(ASSETS_ROOT, 'stylesheets', 'event_calendar.css'))
     end
     
-    desc 'Generates js for the calendar'
+    desc 'Generates js for the event calendar'
     task :js do
       puts File.read(File.join(ASSETS_ROOT, 'javascripts', 'event_calendar.prototype.js'))
     end
