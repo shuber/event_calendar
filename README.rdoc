@@ -36,7 +36,7 @@ See the documentation for the <tt>EventCalendar</tt> class at http://rdoc.info/p
 
 ==== Note
 
-The default css was built on YUI (See http://developer.yahoo.com/yui) and the default javascript was built on Prototype (See http://www.prototypejs.org).
+The default css was built on YUI (See http://developer.yahoo.com/yui) and javascript on Prototype (See http://www.prototypejs.org).
 
 
 == Note on Patches/Pull Requests
@@ -54,6 +54,8 @@ The default css was built on YUI (See http://developer.yahoo.com/yui) and the de
 == TODO
 
 * Break Markaby template down into sections so that it's easier to overwrite certain parts
+* Dynamic height calculations for calendar days in JavaScript
+* jQuery support
 
 
 == Copyright
