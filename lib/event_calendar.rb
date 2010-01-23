@@ -12,7 +12,8 @@ class EventCalendar
   
   undef_method :id
   
-  attr_accessor :events, :month, :options, :year
+  attr_accessor :options
+  attr_reader :events, :month, :year
   
   def self.default_options
     @default_options ||= {
@@ -71,8 +72,6 @@ class EventCalendar
   end
   
   def to_s
-    date(:reload)
-    weeks(:reload)
     render
   end
   alias_method :to_html, :to_s
@@ -90,6 +89,7 @@ class EventCalendar
     def render
       render_with_markaby
     end
+    memoize :render
     
     def render_with_markaby
       Markaby::Builder.new(:event_calendar => self, :template => File.read(template)) { eval(template) }.to_s
