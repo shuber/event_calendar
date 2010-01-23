@@ -36,7 +36,7 @@ See the documentation for the <tt>EventCalendar</tt> class at http://rdoc.info/p
 
 ==== Note
 
-The default css was built on YUI (See http://developer.yahoo.com/yui/) and the default javascript was built on Prototype (See http://www.prototypejs.org/).
+The default css was built on YUI (See http://developer.yahoo.com/yui) and the default javascript was built on Prototype (See http://www.prototypejs.org).
 
 
 == Note on Patches/Pull Requests
