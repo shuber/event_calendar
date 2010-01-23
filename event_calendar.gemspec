@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Sean Huber"]
-  s.date = %q{2010-01-22}
+  s.date = %q{2010-01-23}
   s.description = %q{Generates HTML event calendars}
   s.email = %q{shuber@huberry.com}
   s.extra_rdoc_files = [
