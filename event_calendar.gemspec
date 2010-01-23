@@ -1,10 +1,10 @@
 Gem::Specification.new do |s|
   s.name = %q{event_calendar}
-  s.version = "0.0.0"
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Sean Huber"]
-  s.date = %q{2010-01-21}
+  s.date = %q{2010-01-22}
   s.description = %q{Generates HTML event calendars}
   s.email = %q{shuber@huberry.com}
   s.extra_rdoc_files = [
@@ -12,22 +12,23 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".gitignore",
-     "MIT-LICENSE",
-     "README.rdoc",
-     "Rakefile",
-     "VERSION",
-     "assets/javascripts/event_calendar.prototype.js",
-     "assets/stylesheets/event_calendar.css",
-     "init.rb",
-     "lib/event_calendar.rb",
-     "lib/event_calendar/event.rb",
-     "lib/event_calendar/stylesheet.sass",
-     "lib/event_calendar/template.mab",
-     "lib/event_calendar/week.rb",
-     "lib/tasks/generate.rake",
-     "test/date_test.rb",
-     "test/event_calendar_test.rb",
-     "test/test_helper.rb"
+    "MIT-LICENSE",
+    "README.rdoc",
+    "Rakefile",
+    "assets/javascripts/event_calendar.prototype.js",
+    "assets/stylesheets/event_calendar.css",
+    "init.rb",
+    "lib/event_calendar.rb",
+    "lib/event_calendar/event.rb",
+    "lib/event_calendar/stylesheet.sass",
+    "lib/event_calendar/template.mab",
+    "lib/event_calendar/week.rb",
+    "lib/tasks/generate.rake",
+    "test/date_test.rb",
+    "test/event_calendar_test.rb",
+    "test/event_test.rb",
+    "test/test_helper.rb",
+    "test/week_test.rb"
   ]
   s.homepage = %q{http://github.com/shuber/event_calendar}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -36,9 +37,10 @@ Gem::Specification.new do |s|
   s.summary = %q{Generates HTML event calendars}
   s.test_files = [
     "test/date_test.rb",
-     "test/event_calendar_test.rb",
-     "test/event_test.rb",
-     "test/test_helper.rb"
+    "test/event_calendar_test.rb",
+    "test/event_test.rb",
+    "test/test_helper.rb",
+    "test/week_test.rb"
   ]
 
   if s.respond_to? :specification_version then
