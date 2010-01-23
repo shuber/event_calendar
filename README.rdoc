@@ -51,6 +51,11 @@ The default css was built on YUI (See http://developer.yahoo.com/yui/) and the d
 * Send me a pull request. Bonus points for topic branches.
 
 
+== TODO
+
+* Break Markaby template down into sections so that it's easier to overwrite certain parts
+
+
 == Copyright
 
 Copyright (c) 2009 Sean Huber. See MIT-LICENSE for details.
