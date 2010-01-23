@@ -20,8 +20,6 @@ namespace :event_calendar do
     task :sandbox => [:build_css] do
       $:.unshift(File.join(EVENT_CALENDAR_ROOT, 'lib'))
       require 'timecop'
-      require 'active_support'
-      require 'markaby'
       require 'event_calendar'
       
       FileUtils.mkdir(SANDBOX_ROOT) unless File.exists?(SANDBOX_ROOT)

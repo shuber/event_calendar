@@ -1,8 +1,11 @@
 class EventCalendar
+  
+  # Contains an array of days representing a calendar week
   class Week < Array
     
     extend ActiveSupport::Memoizable
     
+    # Accepts two arguments, an array of days and an array of events
     def initialize(days, events)
       super days
       add_associated_events_to_days(events)
@@ -34,6 +37,7 @@ class EventCalendar
     
     protected
     
+      # Loops through each day in this week and adds any associated events to its <tt>:events</tt> array.
       def add_associated_events_to_days(events)
         each { |day| day.events = events.select { |event| event.start_date == day || (event.start_date < day && event.end_date >= day && day == first) } }
       end
