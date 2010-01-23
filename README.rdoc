@@ -1,6 +1,6 @@
 = event_calendar
 
-Generates HTML event calendars with ruby
+Generates HTML event calendars
 
 
 == Installation
@@ -10,8 +10,33 @@ Generates HTML event calendars with ruby
 
 == Usage
 
+=== Basic
+
   @event_calendar = EventCalendar.new(2009, 10, :events => Event.all)
   puts @event_calendar.to_html
+
+=== Options
+
+The <tt>EventCalendar.new</tt> method accepts a hash or block of options, for example:
+
+  @event_calendar = EventCalendar.new(2009, 10, :id => 'calendar', :events => Event.all)
+  
+  @event_calendar = EventCalendar.new(2009, 10) do |c|
+    c.id = 'calendar'
+    c.events = Event.all
+  end
+
+See the documentation for the <tt>EventCalendar</tt> class at http://rdoc.info/projects/shuber/event_calendar for a list of available options.
+
+=== Assets
+
+  rake event_calendar:generate:css      # Generates css for the event calendar
+  rake event_calendar:generate:js       # Generates js for the event calendar
+  rake event_calendar:generate:sandbox  # Creates a sandbox in the current working directory for testing
+
+==== Note
+
+The default css was built on YUI (See http://developer.yahoo.com/yui/) and the default javascript was built on Prototype (See http://www.prototypejs.org/).
 
 
 == Note on Patches/Pull Requests

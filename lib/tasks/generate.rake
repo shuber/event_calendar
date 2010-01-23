@@ -16,7 +16,7 @@ namespace :event_calendar do
       puts File.read(File.join(ASSETS_ROOT, 'javascripts', 'event_calendar.prototype.js'))
     end
     
-    desc 'Creates a sandbox in the gem root for testing'
+    desc 'Creates a sandbox in the current working directory for testing'
     task :sandbox => [:build_css] do
       $:.unshift(File.join(EVENT_CALENDAR_ROOT, 'lib'))
       require 'timecop'
