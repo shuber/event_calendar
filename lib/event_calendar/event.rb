@@ -6,7 +6,8 @@ class EventCalendar
     
     undef_method :id
     
-    attr_reader :event, :options
+    attr_accessor :options
+    attr_reader :event
     
     # Accepts a real event object which it stores to proxy method calls to, and a hash of options obtained from the
     # <tt>EventCalendar</tt> instance.
