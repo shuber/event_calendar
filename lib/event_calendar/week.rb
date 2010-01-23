@@ -11,6 +11,27 @@ class EventCalendar
       add_associated_events_to_days(events)
     end
     
+    # Returns an array of arrays containing hashes of events to fit in an HTML calendar week row.
+    #
+    # Each hash in the array represents a table cell <tt>td</tt> when the calendar is generated.
+    # If the hash is empty, an empty <tt>td</tt> would be generated. Otherwise, the <tt>td</tt>
+    # will contain information related to the associated event. An event hash contains:
+    #
+    #   :event      =>  The event object.
+    #   :span       =>  The number of days this event takes up in the current week row.
+    #   :continued  =>  A boolean determining if this event starts before or ends after the current week.
+    #
+    # For example:
+    #
+    #   puts @week.events.inspect
+    #
+    #   # [
+    #   #   [{}, {}, { :event => ..., :span => 1, :continued => false }, { :event => ..., :span => 1, :continued => false}, {}, {}, {}],
+    #   #   [{}, {}, { :event => ..., :span => 1, :continued => false }, {}, {}, {}, { :event => ..., :span => 1, :continued => true }],
+    #   #   [{}, {}, { :event => ..., :span => 1, :continued => false }, {}, {}, {}, {}],
+    #   #   [{}, {}, { :event => ..., :span => 1, :continued => false }, {}, {}, {}, {}],
+    #   #   [{}, {}, { :event => ..., :span => 4, :continued => false }, {}]
+    #   # ]
     def events
       events = []
       day_events_index = inject({}) { |hash, day| hash.merge! day => 0 }
