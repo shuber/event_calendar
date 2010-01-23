@@ -38,8 +38,8 @@ class EventCalendar
   end
   
   def initialize(year = Time.now.year, month = Time.now.month, options = {})
-    self.year, self.month, self.options = year, month, self.class.default_options.merge(options)
-    self.events = self.options.delete(:events).collect { |event| Event.new(event, self.options) }.sort_by(&:start)
+    @year, @month, self.options = year, month, self.class.default_options.merge(options)
+    @events = self.options.delete(:events).collect { |event| Event.new(event, self.options) }.sort_by(&:start)
     yield self if block_given?
   end
   
