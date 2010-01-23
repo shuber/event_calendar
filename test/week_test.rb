@@ -28,6 +28,17 @@ class WeekTest < Test::Unit::TestCase
         assert_equal events, @week[index].events
       end
     end
+    
+    should 'correctly parse events into calendar week rows containing hashes' do
+      @parsed_events = [
+        [{}, {}, { :event => @events[0], :span => 1, :continued => false }, { :event => @events[4], :span => 1, :continued => false}, {}, { :event => @events[6], :span => 2, :continued => true }],
+        [{}, {}, { :event => @events[1], :span => 1, :continued => false }, {}, {}, {}, { :event => @events[7], :span => 1, :continued => true }],
+        [{}, {}, { :event => @events[2], :span => 1, :continued => false }, {}, {}, {}, {}],
+        [{}, {}, { :event => @events[3], :span => 1, :continued => false }, {}, {}, {}, {}],
+        [{}, {}, { :event => @events[5], :span => 4, :continued => false }, {}]
+      ]
+      assert_equal @parsed_events, @week.events
+    end
   end
   
 end
