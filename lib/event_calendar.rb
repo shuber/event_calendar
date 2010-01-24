@@ -14,8 +14,8 @@ class EventCalendar
   
   undef_method :id
   
-  attr_accessor :options
-  attr_reader :events, :month, :year
+  attr_accessor :events, :options
+  attr_reader :month, :year
   
   # The default options used when generating event calendars
   #
@@ -146,8 +146,10 @@ class EventCalendar
   end
   alias_method :to_html, :to_s
   
-  # Returns an array of arrays which represent weeks and contain date objects for every day that this calendar displays.
+  # Returns an array of week objects which contain date objects for every day that this calendar displays.
   # It may contain a few days from the previous and next months.
+  #
+  # The <tt>EventCalendar::Week</tt> class inherits from <tt>Array</tt>.
   #
   # For example:
   #
@@ -180,7 +182,7 @@ class EventCalendar
     # Reads the template file specified in <tt>options[:template]</tt> and evaluates it with <tt>Markaby</tt>,
     # passing this <tt>EventCalendar</tt> instance as the <tt>event_calendar</tt> local variable.
     def render_with_markaby
-      Markaby::Builder.new(:event_calendar => self, :template => File.read(template)) { eval(template) }.to_s
+      Markaby::Builder.new(:event_calendar => self, :template => File.exists?(template) ? File.read(template) : template) { eval(template) }.to_s
     end
     
 end

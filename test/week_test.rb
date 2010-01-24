@@ -7,18 +7,7 @@ class WeekTest < Test::Unit::TestCase
       @week_start = Date.civil(2009, 10, 4)
       @week_end = Date.civil(2009, 10, 10)
       @days = (@week_start..@week_end).to_a
-      Timecop.freeze(Date.civil(2009, 10, 6)) do
-        @events ||= [
-          Event.new('Event 1', Time.now, 10.minutes.from_now),
-          Event.new('Event 1a', Time.now, 10.minutes.from_now),
-          Event.new('Event 1b', Time.now, 10.minutes.from_now),
-          Event.new('Event 1c', Time.now, 10.minutes.from_now),
-          Event.new('Event 2', 1.day.from_now, 1.5.days.from_now),
-          Event.new('Event 3', Time.now, 3.days.from_now),
-          Event.new('Event 4 has a longer title', 3.days.from_now, 5.days.from_now),
-          Event.new('Event 5 spans across multiple weeks', 4.days.from_now, 12.days.from_now)
-        ].collect { |event| EventCalendar::Event.new(event, EventCalendar.default_options) }
-      end
+      @events = events.collect { |event| EventCalendar::Event.new(event, EventCalendar.default_options) }
       @week = EventCalendar::Week.new(@days, @events)
     end
     

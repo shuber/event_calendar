@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
     "test/date_test.rb",
     "test/event_calendar_test.rb",
     "test/event_test.rb",
+    "test/fixtures/template.mab",
     "test/test_helper.rb",
     "test/week_test.rb"
   ]
@@ -39,6 +40,7 @@ Gem::Specification.new do |s|
     "test/date_test.rb",
     "test/event_calendar_test.rb",
     "test/event_test.rb",
+    "test/fixtures/template.mab",
     "test/test_helper.rb",
     "test/week_test.rb"
   ]
